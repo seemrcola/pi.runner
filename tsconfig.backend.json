@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "target": "ES2023",
+    "lib": ["ES2023"],
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "types": ["node"],
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "skipLibCheck": true,
+    "outDir": "dist/backend",
+    "rootDir": ".",
+    "sourceMap": true
+  },
+  "include": ["backend/**/*.ts", "shared/**/*.ts"],
+  "exclude": ["**/*.test.ts"]
+}

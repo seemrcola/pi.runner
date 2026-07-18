@@ -1,0 +1,88 @@
+{
+  "name": "pi.runner",
+  "description": "Desktop client for running and managing Pi agent sessions",
+  "author": "Pi Runner Contributors",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "main": "dist/electron/main.js",
+  "scripts": {
+    "dev": "tsc -p tsconfig.backend.json && vite --host 127.0.0.1",
+    "clean": "node scripts/clean-build-output.mjs",
+    "typecheck": "vue-tsc -b && tsc -p tsconfig.backend.json --noEmit",
+    "build": "npm run clean && vue-tsc -b && vite build && tsc -p tsconfig.backend.json && npm run check:build-output",
+    "check:build-output": "node scripts/check-build-output.mjs",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "verify": "npm run typecheck && npm test",
+    "package:dir": "npm run build && electron-builder --dir",
+    "package": "npm run build && electron-builder --mac dmg zip --arm64",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@lucide/vue": "^1.22.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "dompurify": "^3.4.11",
+    "highlight.js": "^11.11.1",
+    "marked": "^18.0.5",
+    "marked-highlight": "^2.2.4",
+    "reka-ui": "^2.10.1",
+    "tailwind-merge": "^3.6.0",
+    "tailwindcss-animate": "^1.0.7",
+    "vue": "^3.5.38",
+    "vue-sonner": "^2.0.9",
+    "ws": "^8.21.0",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "^24.13.2",
+    "@types/ws": "^8.18.1",
+    "@vitejs/plugin-vue": "^6.0.7",
+    "@vue/test-utils": "^2.4.11",
+    "@vue/tsconfig": "^0.9.1",
+    "autoprefixer": "^10.5.2",
+    "electron": "^42.5.0",
+    "electron-builder": "^26.15.3",
+    "happy-dom": "^20.10.6",
+    "postcss": "^8.5.16",
+    "tailwindcss": "^3.4.19",
+    "typescript": "~6.0.2",
+    "vite": "^8.1.0",
+    "vite-plugin-electron": "^1.1.0",
+    "vitest": "^4.1.9",
+    "vue-tsc": "^3.3.5"
+  },
+  "build": {
+    "appId": "com.pi.runner",
+    "productName": "Pi Runner",
+    "asar": true,
+    "directories": {
+      "output": "release",
+      "buildResources": "public"
+    },
+    "files": [
+      "dist/**/*",
+      "package.json"
+    ],
+    "mac": {
+      "category": "public.app-category.developer-tools",
+      "icon": "public/app-icon.png",
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "arm64"
+          ]
+        },
+        {
+          "target": "zip",
+          "arch": [
+            "arm64"
+          ]
+        }
+      ]
+    },
+    "artifactName": "${productName}-${version}-${arch}.${ext}"
+  }
+}
